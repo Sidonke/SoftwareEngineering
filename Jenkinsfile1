@@ -1,6 +1,12 @@
 pipeline {
     
   agent any
+    
+   stages {
+        stage('Compile') {
+            steps {
+                gradlew('clean', 'classes')
+            }  
     stage ('Build') {
 	steps {
 		sh './gradlew clean build'
@@ -26,5 +32,6 @@ stage ('Deploy') {
     steps {
         sh 'docker run -d -p 8080:8080'
     }
+   }
    }
 }
