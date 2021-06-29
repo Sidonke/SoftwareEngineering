@@ -1,42 +1,37 @@
 pipeline {
     
   agent any
-  triggers {
-        pollSCM('*/5 * * * *')
-    }  
+    tools {
+        gradle 'Gradle-7.1'
+    }
     
-    
-   stages {
-        stage('Compile') {
+    stages {
+       
+        stage("run backend") {
             steps {
-                gradlew('clean', 'classes')
-            } }
-	    
-    stage ('Build') {
-	steps {
-		sh './gradlew clean build'
-	}
- }
-
-stage ('Test and Build') {
-    agent {
-        docker {
-            image 'openjdk:11'
-            args '-v "$PWD":/app'
-            reuseNode true
+                echo 'executing gradle...'
+                withGradle() {
+                    sh './gradlew -v'
+                }
+            }
         }
-    }
-    steps {
-        sh './gradlew clean build'
-    }
-
-
-}
-
-stage ('Deploy') {
-    steps {
-        sh 'docker run -d -p 8080:8080'
-    }
-   }
-   }
+        
+        stage("build") {
+            steps {
+                echo 'building the application'
+                
+                
+            }
+        }
+        stage("test") {
+            steps {
+                echo 'testin the application'
+            }
+        }
+        stage("deploy") {
+            steps {
+                echo 'building the application'
+            }
+        }
+    }   
 }
