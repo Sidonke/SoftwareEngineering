@@ -10,7 +10,7 @@ pipeline {
         stage("build") {
             steps {
                 echo 'building the application'
-                sh "gradle install"
+                
             }
         }
         stage("test") {
