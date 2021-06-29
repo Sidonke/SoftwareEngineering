@@ -7,13 +7,11 @@ pipeline {
     
     stages {
        
-        stage("run backend") {
-            steps {
-                echo 'executing gradle...'
-                withGradle {
+        node{
+              withGradle {
                     sh './gradlew build'
                 }
-            }
+            
         }
         
         stage("build") {
