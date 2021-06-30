@@ -18,10 +18,6 @@ pipeline {
                 echo 'testing the application'
             }
         }
-        stage("deploy") {
-            steps {
-                echo 'building the application'
-            }
-        }
+        
     }   
 }
